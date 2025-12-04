@@ -22,12 +22,17 @@ public class ParkingFloor {
     }
 
     public Map<String,ParkingSpot> getSpots(){
-        return this.spots;
+        return spots;
     }
 
     public ParkingSpot findAvailableSpot(VehicleType vehicleType){
         for(ParkingSpot spot : spots.values()){
-            if(spot.getAllowedType()==vehicleType && spot.tryOccupy()) return spot;
+
+            if(spot.getAllowedType()==vehicleType && spot.tryOccupy()) {
+//                System.out.println(spot.getAllowedType());
+//                System.out.println(vehicleType);
+                return spot;
+            }
         }
         return null;
     }

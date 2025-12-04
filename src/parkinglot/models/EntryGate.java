@@ -17,8 +17,9 @@ public class EntryGate extends Gate{
     }
 
     // TODO: implement park vehicle functionality
-    public void parkVehicle(Vehicle vehicle, LocalDateTime entryTime){
-        ParkingLot.getInstance().parkVehicle(vehicle,entryTime);
+    public Ticket parkVehicle(Vehicle vehicle, LocalDateTime entryTime){
+        return ParkingLot.getInstance().parkVehicle(vehicle,entryTime);
+
     }
 
 

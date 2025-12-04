@@ -1,5 +1,6 @@
 package parkinglot;
 
+import parkinglot.enums.PaymentMode;
 import parkinglot.enums.PricingStrategyType;
 import parkinglot.enums.VehicleType;
 import parkinglot.factory.PricingStrategyFactory;
@@ -17,6 +18,7 @@ public class Main {
         ParkingLot parkingLot = ParkingLot.getInstance();
         EntryGate entryGate = new EntryGate("EG1");
         ExitGate exitGate = new ExitGate("XG1");
+        Ticket[] capturedTickets = new Ticket[5];
 
         ParkingFloor parkingFloor1 = new ParkingFloor("floor1");
         parkingFloor1.addSpot(new ParkingSpot("F1S1", VehicleType.CAR));
@@ -35,10 +37,25 @@ public class Main {
         LocalDateTime entryTime = DateTimeParser.parse("03 Dec 1:22 PM 2025");
         System.out.println(entryTime.truncatedTo(ChronoUnit.HOURS));
 
-        Thread t1 = new Thread(()->entryGate.parkVehicle(bike1,entryTime));
-        Thread t2 = new Thread(()->entryGate.parkVehicle(bike2,entryTime));
+        Thread t1 = new Thread(() -> capturedTickets[0] = entryGate.parkVehicle(bike1, entryTime));
+        Thread t2 = new Thread(() -> capturedTickets[1] = entryGate.parkVehicle(bike2, entryTime));
+
         t1.start();
         t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            // ... handle exception
+            System.out.println(e.fillInStackTrace());
+        }
+
+        LocalDateTime exitTime = DateTimeParser.parse("05 Dec 1:53 PM 2025");
+        exitGate.unparkVehicle(capturedTickets[0].getTicketId(),exitTime, PaymentMode.UPI);
+
+        System.out.println("-----------------------------");
+        parkingLot.printStatus();
 
 
 

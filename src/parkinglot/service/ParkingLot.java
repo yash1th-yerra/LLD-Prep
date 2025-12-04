@@ -53,9 +53,9 @@ public class ParkingLot {
                 String ticketId = UUID.randomUUID().toString();
                 Ticket ticket =new Ticket.Builder()
                                 .setTicketId(ticketId).vehicle(vehicle)
-                                .entryTime(LocalDateTime.now())
-                                .floorId("F1")
-                                .spotId("S13")
+                                .entryTime(entryTime)
+                                .floorId(floor.getFloorId())
+                                .spotId(spot.getSpotId())
                                 .paymentStatus(PaymentStatus.PENDING)
                                 .build();
 
@@ -90,7 +90,6 @@ public class ParkingLot {
             System.out.println("Vehicle cannot exit. Payment Unsuccessful");
             return;
         }
-
         ParkingSpot spot = floors.get(ticket.getFloorId()).getSpots().get(ticket.getSpotId());
         spot.vacate();
         activeTickets.remove(ticketId);
