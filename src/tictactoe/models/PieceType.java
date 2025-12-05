@@ -1,4 +1,4 @@
-package tictactoe.enums;
+package tictactoe.models;
 
 public enum PieceType {
 
