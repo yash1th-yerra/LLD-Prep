@@ -120,7 +120,10 @@ Space Complexity - O(1)
 ##### Optimal:
 - since we are running loop and checking each condition ,instead if we maintain a prefix sum kind of thing for each move he makes then we don't need to run a loop and check all cells in row,col,diag and rev diag.
 - maintain rowSum and colSum array since they change in only one pointer . and maintain diag and reverseDiag variables since they are common in any situation.
-- each time player makes a move , we check if sum 
+- each time player makes a move , we check if absolute sum is equal to size of row or col if it is then that player is winner. else not
+ 
+Time Complexity - O(1)
+Space Complexity - O(2N)
 
 
 
